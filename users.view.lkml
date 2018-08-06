@@ -72,6 +72,21 @@ view: users {
     drill_fields: [detail*]
   }
 
+
+ dimension: address_info {
+   type: string
+   sql: CONCAT(${city},", ",${state},", ",CAST(${zip} AS CHAR)) ;;
+ }
+
+measure: count_address_info {
+  type: count_distinct
+  sql: ${address_info} ;;
+}
+
+# dimension: has_moved {
+#   type: yesno
+#   sql: ${count_address_info} > 1 ;;
+# }
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
